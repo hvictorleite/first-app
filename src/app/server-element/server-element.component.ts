@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges, DoCheck, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, DoCheck, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-server-element',
@@ -9,34 +9,39 @@ export class ServerElementComponent implements OnDestroy {
   @Input('srvElement') element: { type: string, name: string, content: string };
   @Input() name: string;
 
-  // constructor() {
-  //   console.log('constructor called!');
-  // }
+  @ViewChild('title', { static: true }) title: ElementRef;
 
-  // ngOnChanges(changes: SimpleChanges) {
-  //   console.log('ngOnChanges called!');
-  //   console.log(changes);
-  // }
+  constructor() {
+    console.log('constructor called!');
+  }
 
-  // ngOnInit() {
-  //   console.log('ngOnInit called!');
-  // }
+  ngOnChanges(changes: SimpleChanges) {
+    console.log('ngOnChanges called!');
+    console.log(changes);
+  }
 
-  // ngDoCheck(): void {
-  //   console.log('ngDoCheck called!');
-  // }
+  ngOnInit() {
+    console.log('ngOnInit called!');
+    // Does not work. Components have not been initialized at this time.
+    // console.log('Text content: ' + this.title.nativeElement.textContent);
+  }
 
-  // ngAfterContentChecked(): void {
-  //   console.log('ngAfterContentChecked called!');
-  // }
+  ngDoCheck(): void {
+    console.log('ngDoCheck called!');
+  }
 
-  // ngAfterViewInit(): void {
-  //   console.log('ngAfterViewInit called!');
-  // }
+  ngAfterContentChecked(): void {
+    console.log('ngAfterContentChecked called!');
+  }
 
-  // ngAfterViewChecked(): void {
-  //   console.log('ngAfterViewChecked called!');
-  // }
+  ngAfterViewInit(): void {
+    console.log('ngAfterViewInit called!');
+    console.log('Text content: ' + this.title.nativeElement.textContent);
+  }
+
+  ngAfterViewChecked(): void {
+    console.log('ngAfterViewChecked called!');
+  }
 
   ngOnDestroy(): void {
     console.log('ngOnDestroy called!');
