@@ -3,10 +3,7 @@
     <!-- <div class="card-title">{{ element.name }}</div> -->
     <div class="card-title">{{ name }}</div>
     <div class="card-text">
-      <p>
-        <strong *ngIf="element.type === 'server'" style="color: red">{{ element.content }}</strong>
-        <em *ngIf="element.type === 'blueprint'">{{ element.content }}</em>
-      </p>
+      <ng-content></ng-content>
     </div>
   </div>
 </div>
