@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <app-cockpit
     (serverCreated)="onServerAdded($event)"
     (bpCreated)="onBlueprintAdded($event)">
@@ -17,6 +17,25 @@
           <em *ngIf="serverElement.type === 'blueprint'">{{ serverElement.content }}</em>
         </p>
       </app-server-element>
+    </div>
+  </div>
+</div> -->
+
+<div class="container">
+  <div class="row d-flex align-items-end">
+    <p class="col-sm-3 odd" style="font-weight: bolder; font-size: 50px; text-align: center;">{{clock != 0 ? clock - 1 : ''}}</p>
+    <p class="col-sm-6 clock" style="font-weight: bolder; font-size: 100px; text-align: center;">{{clock}}</p>
+    <p class="col-sm-3 even" style="font-weight: bolder; font-size: 50px; text-align: center;">{{clock != 0 ? clock + 1 : ''}}</p>
+  </div>
+  <div class="row">
+    <app-game-control (gameStarted)="onGameStarted($event)"></app-game-control>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <app-odd *ngFor="let number of oddNumbers" [number]="number"></app-odd>
+    </div>
+    <div class="col-sm-6">
+      <app-even *ngFor="let number of evenNumbers" [number]="number"></app-even>
     </div>
   </div>
 </div>
