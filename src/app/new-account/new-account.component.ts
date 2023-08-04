@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   selector: 'app-new-account',
   templateUrl: './new-account.component.html',
   styleUrls: ['./new-account.component.css'],
-  providers: [AccountsService, LoggingService]
+  providers: [LoggingService]
 })
 export class NewAccountComponent {
   constructor(private accountsService: AccountsService, private loggingService: LoggingService) {}
