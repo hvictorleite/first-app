@@ -19,7 +19,7 @@ export class ServersComponent implements OnInit {
   }
 
   onReloadPage(): void {
-    this.router.navigate(['servers'], {relativeTo: this.route});
+    // this.router.navigate(['servers'], {relativeTo: this.route});
   }
 
 }
