@@ -17,6 +17,7 @@ export class EditServerComponent implements OnInit, OnDestroy, CanComponentDeact
   allowEdit = false;
   changesSaved = false;
 
+  paramsSubscription: Subscription;
   queryParamsSubscription: Subscription;
 
   constructor(private serversService: ServersService,
@@ -29,7 +30,7 @@ export class EditServerComponent implements OnInit, OnDestroy, CanComponentDeact
         this.allowEdit = queryParams['allowEdit'] === '1' ? true : false;
       });
 
-    this.route.params.subscribe(
+    this.paramsSubscription = this.route.params.subscribe(
       (params: Params) => {
         this.server = this.serversService.getServer(+params['id']);
         this.serverName = this.server.name;
@@ -41,7 +42,7 @@ export class EditServerComponent implements OnInit, OnDestroy, CanComponentDeact
   onUpdateServer() {
     this.serversService.updateServer(this.server.id, {name: this.serverName, status: this.serverStatus});
     this.changesSaved = true;
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['../'], {relativeTo: this.route, queryParams: {allowEdit: 1}, fragment: 'loading'});
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
@@ -55,5 +56,6 @@ export class EditServerComponent implements OnInit, OnDestroy, CanComponentDeact
 
   ngOnDestroy() {
     this.queryParamsSubscription.unsubscribe();
+    this.paramsSubscription.unsubscribe();
   }
 }
