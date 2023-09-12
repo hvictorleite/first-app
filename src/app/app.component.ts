@@ -34,7 +34,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onFetchPosts() {
     // Send Http request
-    this.error = null;
     this.isFetching = true;
     this.postsService.fetchPosts()
       .subscribe({
@@ -43,6 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
           this.loadedPosts = posts;
         },
         error: (err) => {
+          this.isFetching = false;
           this.error = err.message;
         }
     });
@@ -55,6 +55,10 @@ export class AppComponent implements OnInit, OnDestroy {
           this.loadedPosts = [];
         }
     });
+  }
+
+  onHandleError() {
+    this.error = null;
   }
 
   ngOnDestroy() {
