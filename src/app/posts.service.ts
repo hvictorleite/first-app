@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Post } from './post.model';
 import { map, catchError } from 'rxjs/operators';
@@ -24,9 +24,19 @@ export class PostsService {
   }
 
   fetchPosts(): Observable<Post[]> {
+    let searchParams = new HttpParams();
+    searchParams = searchParams.append('print', 'pretty');
+    searchParams = searchParams.append('custom', 'key');
+
     return this.http
-      .get<{ [key: string]: Post }>('https://ng-complete-guide-v-default-rtdb.firebaseio.com/posts.json')
-      .pipe(
+      .get<{ [key: string]: Post }>(
+        'https://ng-complete-guide-v-default-rtdb.firebaseio.com/posts.json',
+        {
+          headers: new HttpHeaders({'Custom-Header': 'Hello!'}),
+          // params: new HttpParams().set('print', 'pretty').set('custom', 'key')
+          params: searchParams
+        }
+      ).pipe(
         map(responseData => {
           const postsArray: Post[] = [];
           for (const key in responseData)
@@ -36,7 +46,7 @@ export class PostsService {
         }),
         catchError(errorResponse => {
           // Send to analytics server
-          return throwError(() => new Error(errorResponse));
+          return throwError(() => new Error(errorResponse.message));
         })
       );
   }
